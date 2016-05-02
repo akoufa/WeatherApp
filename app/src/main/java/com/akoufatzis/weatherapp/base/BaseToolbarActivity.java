@@ -1,0 +1,29 @@
+package com.akoufatzis.weatherapp.base;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+
+import com.akoufatzis.weatherapp.R;
+
+/**
+ * Created by alexk on 01/05/16.
+ */
+public abstract class BaseToolbarActivity extends AppCompatActivity {
+
+    protected Toolbar toolbar;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(getLayoutResourceId());
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+
+    }
+
+    protected abstract int getLayoutResourceId();
+}
