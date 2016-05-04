@@ -1,15 +1,19 @@
 package com.akoufatzis.weatherapp.cityweathersearch.view;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
 
 import com.akoufatzis.weatherapp.R;
 import com.akoufatzis.weatherapp.base.BaseToolbarActivity;
 import com.akoufatzis.weatherapp.base.MvpBaseSearchPresenter;
-import com.akoufatzis.weatherapp.cityweathersearch.presenter.CitiesWeatherSearchPresenter;
+import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherAdapter;
+import com.akoufatzis.weatherapp.cityweathersearch.presenter.CityWeatherSearchPresenter;
 import com.akoufatzis.weatherapp.model.CityWeather;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -18,12 +22,16 @@ import butterknife.ButterKnife;
 /**
  * Created by alexk on 02/05/16.
  */
-public class CitiesWeatherSearchActivity extends BaseToolbarActivity implements CitiesWeatherView {
+public class CityWeatherSearchActivity extends BaseToolbarActivity implements CityWeatherView {
 
     @BindView(R.id.citiesweathersearch_edittext)
     EditText searchEditText;
 
-    private MvpBaseSearchPresenter<CitiesWeatherView> presenter;
+    @BindView(R.id.citiesweathersearch_recyclerview)
+    RecyclerView cityWeatherRecyclerView;
+
+    private MvpBaseSearchPresenter<CityWeatherView> presenter;
+    private CityWeatherAdapter cityWeatherAdapter;
 
     @Override
     protected int getLayoutResourceId() {
@@ -35,11 +43,15 @@ public class CitiesWeatherSearchActivity extends BaseToolbarActivity implements 
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
-        presenter = new CitiesWeatherSearchPresenter();
+        presenter = new CityWeatherSearchPresenter();
         presenter.attachView(this);
 
         // Informing the presenter
         presenter.onSearchTextChanged(RxTextView.textChanges(searchEditText));
+
+        cityWeatherAdapter = new CityWeatherAdapter(this, new ArrayList<>());
+        cityWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        cityWeatherRecyclerView.setAdapter(cityWeatherAdapter);
 
     }
 
@@ -57,6 +69,8 @@ public class CitiesWeatherSearchActivity extends BaseToolbarActivity implements 
     @Override
     public void addData(CityWeather cityWeather) {
 
+        cityWeatherAdapter.addCityWeather(cityWeather);
+        cityWeatherRecyclerView.scrollToPosition(0);
     }
 
     @Override

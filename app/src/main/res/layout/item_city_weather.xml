@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
+
+    <TextView
+        android:id="@+id/city_name_textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/city_weather_degrees_textview"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        tools:text="London" />
+
+    <TextView
+        android:id="@+id/city_weather_degrees_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/city_name_textview"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/city_weather_description_textview"
+        android:gravity="start|center_vertical"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        tools:text="30 C" />
+
+    <TextView
+        android:id="@+id/city_weather_description_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/city_name_textview"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/city_weather_icon_imageview"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        tools:text="clouds" />
+
+    <ImageView
+        android:id="@+id/city_weather_icon_imageview"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

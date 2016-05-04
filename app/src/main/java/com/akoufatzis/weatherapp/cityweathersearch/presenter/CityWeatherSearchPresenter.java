@@ -3,7 +3,7 @@ package com.akoufatzis.weatherapp.cityweathersearch.presenter;
 import android.util.Log;
 
 import com.akoufatzis.weatherapp.base.MvpBaseSearchPresenter;
-import com.akoufatzis.weatherapp.cityweathersearch.view.CitiesWeatherView;
+import com.akoufatzis.weatherapp.cityweathersearch.view.CityWeatherView;
 import com.akoufatzis.weatherapp.communication.DataManager;
 
 import java.util.concurrent.TimeUnit;
@@ -13,11 +13,11 @@ import rx.Observable;
 /**
  * Created by alexk on 01/05/16.
  */
-public class CitiesWeatherSearchPresenter extends MvpBaseSearchPresenter<CitiesWeatherView> {
+public class CityWeatherSearchPresenter extends MvpBaseSearchPresenter<CityWeatherView> {
 
     DataManager dataManager;
 
-    public CitiesWeatherSearchPresenter() {
+    public CityWeatherSearchPresenter() {
 
         // TODO: Implement with dagger 2
         dataManager = DataManager.newInstance();
@@ -27,10 +27,13 @@ public class CitiesWeatherSearchPresenter extends MvpBaseSearchPresenter<CitiesW
     public void onSearchTextChanged(Observable<CharSequence> searchObservable) {
 
         searchObservable
-                .debounce(200, TimeUnit.MILLISECONDS)
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .map(CharSequence::toString)
+                .map(String::trim)
                 .filter(searchTerm -> searchTerm.length() > 2)
-                // use switchmap if we want to cancel the previous request
-                .flatMap(searchTerm -> dataManager.getWeatherByCityName(searchTerm.toString()))
+                .distinctUntilChanged()
+                // use switchmap to cancel the previous request
+                .switchMap(searchTerm -> dataManager.getWeatherByCityName(searchTerm))
                 .subscribe(cityWeather -> {
 
                     if (getView() != null) {

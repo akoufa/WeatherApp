@@ -6,7 +6,7 @@ import com.akoufatzis.weatherapp.model.CityWeather;
 /**
  * Created by alexk on 01/05/16.
  */
-public interface CitiesWeatherView extends MvpModelListView<CityWeather> {
+public interface CityWeatherView extends MvpModelListView<CityWeather> {
 
     void addData(CityWeather cityWeather);
 }

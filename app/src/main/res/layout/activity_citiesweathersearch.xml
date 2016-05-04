@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary_dark"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -10,22 +11,35 @@
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/ToolbarTheme"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <EditText
-        android:id="@+id/citiesweathersearch_edittext"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="match_parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/citiesweathersearch_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp" />
+        <EditText
+            android:id="@+id/citiesweathersearch_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/enter_city_name_hint"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:textColor="@android:color/white" />
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/citiesweathersearch_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

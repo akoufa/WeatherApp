@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.akoufatzis.weatherapp.cityweathersearch.view.CitiesWeatherSearchActivity;
+import com.akoufatzis.weatherapp.cityweathersearch.view.CityWeatherSearchActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, CitiesWeatherSearchActivity.class);
+        Intent intent = new Intent(this, CityWeatherSearchActivity.class);
         startActivity(intent);
     }
 }

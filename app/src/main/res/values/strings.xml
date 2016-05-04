@@ -1,5 +1,10 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
     <string name="app_name">WeatherApp</string>
     <string name="base_url" translatable="false">https://api.openweathermap.org/data/2.5/</string>
+    <string name="enter_city_name_hint">Enter City Name</string>
+
+    <!-- Strings for formatting weather-related data -->
+    <!-- Temperature format [CHAR LIMIT=5 -->
+    <string name="format_temperature"><xliff:g id="temp">%1.0f</xliff:g>\u00B0</string>
 
 </resources>

@@ -5,7 +5,7 @@ package com.akoufatzis.weatherapp.model;
  */
 public class Weather {
 
-    private long id;
+    private int id;
     private String main;
     private String description;
     private String icon;
@@ -13,13 +13,11 @@ public class Weather {
     public Weather() {
     }
 
-    ;
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
