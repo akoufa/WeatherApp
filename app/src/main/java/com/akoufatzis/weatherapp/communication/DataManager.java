@@ -3,6 +3,8 @@ package com.akoufatzis.weatherapp.communication;
 import com.akoufatzis.weatherapp.communication.memory.MemoryCache;
 import com.akoufatzis.weatherapp.model.CityWeather;
 
+import javax.inject.Inject;
+
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -15,24 +17,14 @@ public class DataManager {
     // TODO: Introduce enviroment variable
     private static final String APP_ID = "your api key here";
 
-    private static DataManager instance;
     private MemoryCache memoryCache;
-    private IOpenWeatherMapService openWeatherMapService;
+    private IOpenWeatherMapApi openWeatherMapService;
 
-    private DataManager(IOpenWeatherMapService openWeatherMapService) {
+    @Inject
+    public DataManager(IOpenWeatherMapApi openWeatherMapService) {
 
         this.openWeatherMapService = openWeatherMapService;
-    }
-
-    public static DataManager newInstance() {
-
-        if (instance == null) {
-
-            instance = new DataManager(ServiceCreator.create(IOpenWeatherMapService.class, "http://api.openweathermap.org/data/2.5/"));
-            instance.memoryCache = new MemoryCache();
-        }
-
-        return instance;
+        memoryCache = new MemoryCache();
     }
 
     //TODO: Implement caching

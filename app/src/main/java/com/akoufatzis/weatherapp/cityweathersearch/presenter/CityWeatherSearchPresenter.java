@@ -2,25 +2,29 @@ package com.akoufatzis.weatherapp.cityweathersearch.presenter;
 
 import android.util.Log;
 
+import com.akoufatzis.weatherapp.application.injection.scopes.PerActivity;
 import com.akoufatzis.weatherapp.base.MvpBaseSearchPresenter;
 import com.akoufatzis.weatherapp.cityweathersearch.view.CityWeatherView;
 import com.akoufatzis.weatherapp.communication.DataManager;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import rx.Observable;
 
 /**
  * Created by alexk on 01/05/16.
  */
+@PerActivity
 public class CityWeatherSearchPresenter extends MvpBaseSearchPresenter<CityWeatherView> {
 
-    DataManager dataManager;
+    private DataManager dataManager;
 
-    public CityWeatherSearchPresenter() {
+    @Inject
+    public CityWeatherSearchPresenter(DataManager dataManager) {
 
-        // TODO: Implement with dagger 2
-        dataManager = DataManager.newInstance();
+        this.dataManager = dataManager;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class CityWeatherSearchPresenter extends MvpBaseSearchPresenter<CityWeath
                 .filter(searchTerm -> searchTerm.length() > 2)
                 .distinctUntilChanged()
                 // use switchmap to cancel the previous request
-                .switchMap(searchTerm -> dataManager.getWeatherByCityName(searchTerm))
+                .switchMap(dataManager::getWeatherByCityName)
                 .subscribe(cityWeather -> {
 
                     if (getView() != null) {

@@ -6,15 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
 
 import com.akoufatzis.weatherapp.R;
+import com.akoufatzis.weatherapp.WeatherApplication;
 import com.akoufatzis.weatherapp.base.BaseToolbarActivity;
 import com.akoufatzis.weatherapp.base.MvpBaseSearchPresenter;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherAdapter;
-import com.akoufatzis.weatherapp.cityweathersearch.presenter.CityWeatherSearchPresenter;
 import com.akoufatzis.weatherapp.model.CityWeather;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +32,9 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
     @BindView(R.id.citiesweathersearch_recyclerview)
     RecyclerView cityWeatherRecyclerView;
 
-    private MvpBaseSearchPresenter<CityWeatherView> presenter;
+    @Inject
+    MvpBaseSearchPresenter<CityWeatherView> presenter;
+
     private CityWeatherAdapter cityWeatherAdapter;
 
     @Override
@@ -43,7 +47,8 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
-        presenter = new CityWeatherSearchPresenter();
+        ((WeatherApplication) getApplication()).getCityWeatherSearchActivityComponent().inject(this);
+
         presenter.attachView(this);
 
         // Informing the presenter

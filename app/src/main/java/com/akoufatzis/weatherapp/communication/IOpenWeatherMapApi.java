@@ -9,7 +9,7 @@ import rx.Observable;
 /**
  * Created by alexk on 02/05/16.
  */
-public interface IOpenWeatherMapService {
+public interface IOpenWeatherMapApi {
 
     @GET("weather")
     public Observable<CityWeather> getWeatherByCityName(@Query("q") String cityName, @Query("appid") String appId);
