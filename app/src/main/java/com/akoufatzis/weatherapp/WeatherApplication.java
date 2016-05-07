@@ -9,7 +9,6 @@ import com.akoufatzis.weatherapp.application.injection.components.DaggerCityWeat
 import com.akoufatzis.weatherapp.application.injection.components.DaggerOpenWeatherMapComponent;
 import com.akoufatzis.weatherapp.application.injection.components.OpenWeatherMapComponent;
 import com.akoufatzis.weatherapp.application.injection.modules.AppModule;
-import com.akoufatzis.weatherapp.application.injection.modules.CityWeatherSearchActivityModule;
 import com.akoufatzis.weatherapp.application.injection.modules.NetworkModule;
 
 /**
@@ -40,7 +39,6 @@ public class WeatherApplication extends Application {
 
         return DaggerCityWeatherSearchActivityComponent
                 .builder()
-                .cityWeatherSearchActivityModule(new CityWeatherSearchActivityModule(openWeatherMapComponent.getDataManager()))
                 .openWeatherMapComponent(openWeatherMapComponent)
                 .build();
     }

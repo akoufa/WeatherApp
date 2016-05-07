@@ -15,16 +15,9 @@ import dagger.Provides;
 @Module
 public class CityWeatherSearchActivityModule {
 
-    DataManager dataManager;
-
-    public CityWeatherSearchActivityModule(DataManager dataManager) {
-
-        this.dataManager = dataManager;
-    }
-
     @PerActivity
     @Provides
-    MvpBaseSearchPresenter<CityWeatherView> providesPresenter() {
+    MvpBaseSearchPresenter<CityWeatherView> providesPresenter(DataManager dataManager) {
 
         return new CityWeatherSearchPresenter(dataManager);
     }
