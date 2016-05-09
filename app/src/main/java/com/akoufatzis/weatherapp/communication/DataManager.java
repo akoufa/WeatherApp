@@ -1,5 +1,6 @@
 package com.akoufatzis.weatherapp.communication;
 
+import com.akoufatzis.weatherapp.application.injection.scopes.PerApplication;
 import com.akoufatzis.weatherapp.communication.memory.MemoryCache;
 import com.akoufatzis.weatherapp.model.CityWeather;
 
@@ -12,6 +13,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by alexk on 02/05/16.
  */
+@PerApplication
 public class DataManager {
 
     // TODO: Introduce enviroment variable
