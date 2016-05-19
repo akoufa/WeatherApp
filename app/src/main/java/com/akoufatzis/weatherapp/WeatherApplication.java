@@ -16,8 +16,8 @@ import com.akoufatzis.weatherapp.application.injection.modules.NetworkModule;
  */
 public class WeatherApplication extends Application {
 
-    AppComponent appComponent;
-    OpenWeatherMapComponent openWeatherMapComponent;
+    private AppComponent appComponent;
+    private OpenWeatherMapComponent openWeatherMapComponent;
 
     @Override
     public void onCreate() {
@@ -26,7 +26,7 @@ public class WeatherApplication extends Application {
         appComponent = DaggerAppComponent
                 .builder()
                 .appModule(new AppModule(this))
-                .networkModule(new NetworkModule("http://api.openweathermap.org/data/2.5/"))
+                .networkModule(new NetworkModule(BuildConfig.OPENWEATHERMAP_URL))
                 .build();
 
         openWeatherMapComponent = DaggerOpenWeatherMapComponent

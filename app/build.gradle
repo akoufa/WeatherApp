@@ -12,6 +12,11 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
+        buildConfigField("String", "OPENWEATHERMAP_URL",
+                "\"${weatherAppBaseUrl}\"")
+        buildConfigField("String", "OPENWEATHERMAP_API_KEY",
+                "\"${apiToken}\"")
     }
     buildTypes {
         release {

@@ -1,5 +1,6 @@
 package com.akoufatzis.weatherapp.communication;
 
+import com.akoufatzis.weatherapp.BuildConfig;
 import com.akoufatzis.weatherapp.application.injection.scopes.PerApplication;
 import com.akoufatzis.weatherapp.communication.memory.MemoryCache;
 import com.akoufatzis.weatherapp.model.CityWeather;
@@ -16,11 +17,9 @@ import rx.schedulers.Schedulers;
 @PerApplication
 public class DataManager {
 
-    // TODO: Introduce enviroment variable
-    private static final String APP_ID = "your api key here";
-
     private MemoryCache memoryCache;
     private IOpenWeatherMapApi openWeatherMapService;
+    private final String apiKey = BuildConfig.OPENWEATHERMAP_API_KEY;
 
     @Inject
     public DataManager(IOpenWeatherMapApi openWeatherMapService) {
@@ -33,7 +32,7 @@ public class DataManager {
     public Observable<CityWeather> getWeatherByCityName(String name) {
 
         return openWeatherMapService
-                .getWeatherByCityName(name, APP_ID)
+                .getWeatherByCityName(name, apiKey)
                 .compose(applySchedulers());
     }
 
