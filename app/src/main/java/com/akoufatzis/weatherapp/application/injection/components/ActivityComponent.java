@@ -14,7 +14,10 @@ import dagger.Component;
         dependencies = OpenWeatherMapComponent.class,
         modules = CityWeatherSearchActivityModule.class
 )
-public interface CityWeatherSearchActivityComponent {
+/**
+ * Generic Activity Component to declare all the Activities that support injection
+ */
+public interface ActivityComponent {
 
     CityWeatherSearchActivity inject(CityWeatherSearchActivity activity);
 }

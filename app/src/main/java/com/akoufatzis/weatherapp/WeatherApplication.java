@@ -2,10 +2,10 @@ package com.akoufatzis.weatherapp;
 
 import android.app.Application;
 
+import com.akoufatzis.weatherapp.application.injection.components.ActivityComponent;
 import com.akoufatzis.weatherapp.application.injection.components.AppComponent;
-import com.akoufatzis.weatherapp.application.injection.components.CityWeatherSearchActivityComponent;
+import com.akoufatzis.weatherapp.application.injection.components.DaggerActivityComponent;
 import com.akoufatzis.weatherapp.application.injection.components.DaggerAppComponent;
-import com.akoufatzis.weatherapp.application.injection.components.DaggerCityWeatherSearchActivityComponent;
 import com.akoufatzis.weatherapp.application.injection.components.DaggerOpenWeatherMapComponent;
 import com.akoufatzis.weatherapp.application.injection.components.OpenWeatherMapComponent;
 import com.akoufatzis.weatherapp.application.injection.modules.AppModule;
@@ -35,9 +35,9 @@ public class WeatherApplication extends Application {
                 .build();
     }
 
-    public CityWeatherSearchActivityComponent getCityWeatherSearchActivityComponent() {
+    public ActivityComponent getActivityComponent() {
 
-        return DaggerCityWeatherSearchActivityComponent
+        return DaggerActivityComponent
                 .builder()
                 .openWeatherMapComponent(openWeatherMapComponent)
                 .build();

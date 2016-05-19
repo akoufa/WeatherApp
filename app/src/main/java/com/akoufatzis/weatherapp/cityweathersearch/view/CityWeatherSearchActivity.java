@@ -47,7 +47,7 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
-        ((WeatherApplication) getApplication()).getCityWeatherSearchActivityComponent().inject(this);
+        ((WeatherApplication) getApplication()).getActivityComponent().inject(this);
 
         presenter.attachView(this);
 

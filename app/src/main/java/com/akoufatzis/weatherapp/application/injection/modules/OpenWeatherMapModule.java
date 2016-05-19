@@ -16,7 +16,7 @@ public class OpenWeatherMapModule {
 
     @Provides
     @PerApplication
-    public IOpenWeatherMapApi providesOpenWeatherMapApi(Retrofit retrofit) {
+    IOpenWeatherMapApi providesOpenWeatherMapApi(Retrofit retrofit) {
 
         return retrofit.create(IOpenWeatherMapApi.class);
     }
