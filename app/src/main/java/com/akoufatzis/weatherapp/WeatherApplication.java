@@ -16,14 +16,13 @@ import com.akoufatzis.weatherapp.application.injection.modules.NetworkModule;
  */
 public class WeatherApplication extends Application {
 
-    private AppComponent appComponent;
     private OpenWeatherMapComponent openWeatherMapComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        appComponent = DaggerAppComponent
+        AppComponent appComponent = DaggerAppComponent
                 .builder()
                 .appModule(new AppModule(this))
                 .networkModule(new NetworkModule(BuildConfig.OPENWEATHERMAP_URL))

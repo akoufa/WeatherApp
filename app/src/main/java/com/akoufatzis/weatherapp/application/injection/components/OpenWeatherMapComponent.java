@@ -3,7 +3,6 @@ package com.akoufatzis.weatherapp.application.injection.components;
 import com.akoufatzis.weatherapp.application.injection.modules.OpenWeatherMapModule;
 import com.akoufatzis.weatherapp.application.injection.scopes.PerApplication;
 import com.akoufatzis.weatherapp.communication.DataManager;
-import com.akoufatzis.weatherapp.communication.IOpenWeatherMapApi;
 
 import dagger.Component;
 
@@ -16,8 +15,6 @@ import dagger.Component;
         dependencies = AppComponent.class
 )
 public interface OpenWeatherMapComponent {
-
-    IOpenWeatherMapApi getOpenWeatherMapApi();
 
     DataManager getDataManager();
 }
