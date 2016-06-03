@@ -13,4 +13,7 @@ public interface IOpenWeatherMapApi {
 
     @GET("weather")
     public Observable<CityWeather> getWeatherByCityName(@Query("q") String cityName, @Query("appid") String appId);
+
+    @GET("weather")
+    public Observable<CityWeather> getWeatherByCityId(@Query("id") long cityId, @Query("appid") String appId);
 }

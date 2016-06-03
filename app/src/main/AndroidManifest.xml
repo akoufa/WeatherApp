@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".cityweathersearch.view.CityWeatherSearchActivity" />
+        <activity android:name=".cityweatherdetails.view.CityWeatherDetailsActivity" />
     </application>
 
 </manifest>

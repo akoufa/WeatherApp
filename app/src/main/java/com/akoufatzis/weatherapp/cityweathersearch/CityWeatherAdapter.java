@@ -16,6 +16,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by alexk on 03/05/16.
@@ -23,7 +24,13 @@ import butterknife.ButterKnife;
 public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.CityWeatherViewHolder> {
 
     private List<CityWeather> cityWeatherList;
+    private OnCityWeatherClickListener listener;
     private Context context;
+
+    public interface OnCityWeatherClickListener {
+
+        void onCityWeatherClicked(CityWeather cityWeather);
+    }
 
     public CityWeatherAdapter(Context context, List<CityWeather> cityWeatherList) {
 
@@ -72,7 +79,12 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         notifyItemInserted(0);
     }
 
-    public static class CityWeatherViewHolder extends RecyclerView.ViewHolder {
+    public void setOnCityWeatherClickListener(OnCityWeatherClickListener listener) {
+
+        this.listener = listener;
+    }
+
+    public class CityWeatherViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.city_name_textview)
         TextView cityNameTextView;
@@ -82,6 +94,15 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         TextView cityWeatherDescriptionTextView;
         @BindView(R.id.city_weather_icon_imageview)
         ImageView cityWeatherIconImageView;
+
+        @OnClick(R.id.city_weather_item_layout)
+        public void onCityWeatherItemClicked() {
+
+            if (listener != null && cityWeatherList.size() > getAdapterPosition()) {
+
+                listener.onCityWeatherClicked(cityWeatherList.get(getAdapterPosition()));
+            }
+        }
 
         CityWeatherViewHolder(View itemView) {
             super(itemView);

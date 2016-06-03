@@ -36,6 +36,13 @@ public class DataManager {
                 .compose(applySchedulers());
     }
 
+    public Observable<CityWeather> getWeatherByCityId(long id) {
+
+        return openWeatherMapService
+                .getWeatherByCityId(id, apiKey)
+                .compose(applySchedulers());
+    }
+
     //Schedulers Transformer
 
     private <T> Observable.Transformer<T, T> applySchedulers() {

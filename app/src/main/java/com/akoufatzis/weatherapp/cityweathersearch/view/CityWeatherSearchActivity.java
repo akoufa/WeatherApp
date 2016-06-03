@@ -1,5 +1,6 @@
 package com.akoufatzis.weatherapp.cityweathersearch.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +9,10 @@ import android.widget.EditText;
 import com.akoufatzis.weatherapp.R;
 import com.akoufatzis.weatherapp.WeatherApplication;
 import com.akoufatzis.weatherapp.base.BaseToolbarActivity;
-import com.akoufatzis.weatherapp.base.MvpBaseSearchPresenter;
+import com.akoufatzis.weatherapp.cityweatherdetails.view.CityWeatherDetailsActivity;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherAdapter;
+import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherSearchContract;
+import com.akoufatzis.weatherapp.cityweathersearch.injection.DaggerCityWeatherSearchComponent;
 import com.akoufatzis.weatherapp.model.CityWeather;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
@@ -24,7 +27,7 @@ import butterknife.ButterKnife;
 /**
  * Created by alexk on 02/05/16.
  */
-public class CityWeatherSearchActivity extends BaseToolbarActivity implements CityWeatherView {
+public class CityWeatherSearchActivity extends BaseToolbarActivity implements CityWeatherSearchContract.View {
 
     @BindView(R.id.citiesweathersearch_edittext)
     EditText searchEditText;
@@ -33,7 +36,7 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
     RecyclerView cityWeatherRecyclerView;
 
     @Inject
-    MvpBaseSearchPresenter<CityWeatherView> presenter;
+    CityWeatherSearchContract.Presenter presenter;
 
     private CityWeatherAdapter cityWeatherAdapter;
 
@@ -47,7 +50,11 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
-        ((WeatherApplication) getApplication()).getActivityComponent().inject(this);
+        DaggerCityWeatherSearchComponent
+                .builder()
+                .openWeatherMapComponent(((WeatherApplication) getApplication()).getOpenWeatherMapComponent())
+                .build()
+                .inject(this);
 
         presenter.attachView(this);
 
@@ -57,6 +64,13 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
         cityWeatherAdapter = new CityWeatherAdapter(this, new ArrayList<>());
         cityWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         cityWeatherRecyclerView.setAdapter(cityWeatherAdapter);
+        cityWeatherAdapter.setOnCityWeatherClickListener(cityWeather -> {
+
+            Intent intent = new Intent(this, CityWeatherDetailsActivity.class);
+            intent.putExtra(CityWeatherDetailsActivity.CITY_ID_EXTRA, cityWeather.getId());
+            intent.putExtra(CityWeatherDetailsActivity.CITY_NAME_EXTRA, cityWeather.getName());
+            startActivity(intent);
+        });
 
     }
 
