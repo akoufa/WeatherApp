@@ -12,7 +12,7 @@ import dagger.Component;
 @PerActivity
 @Component(
         dependencies = OpenWeatherMapComponent.class,
-        modules = CityWeatherSearchActivityModule.class
+        modules = CityWeatherSearchModule.class
 )
 public interface CityWeatherSearchComponent {
 

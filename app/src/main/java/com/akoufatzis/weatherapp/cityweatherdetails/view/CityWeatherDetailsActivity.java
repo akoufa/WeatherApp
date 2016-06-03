@@ -5,15 +5,24 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.akoufatzis.weatherapp.R;
+import com.akoufatzis.weatherapp.WeatherApplication;
 import com.akoufatzis.weatherapp.base.BaseToolbarActivity;
+import com.akoufatzis.weatherapp.cityweatherdetails.CityWeatherDetailsContract;
+import com.akoufatzis.weatherapp.cityweatherdetails.injection.DaggerCityWeatherDetailsComponent;
+
+import javax.inject.Inject;
 
 /**
  * Created by alexk on 03/06/16.
  */
-public class CityWeatherDetailsActivity extends BaseToolbarActivity {
+public class CityWeatherDetailsActivity extends BaseToolbarActivity
+        implements CityWeatherDetailsContract.View {
 
     public static String CITY_ID_EXTRA = "city_id_extra";
     public static String CITY_NAME_EXTRA = "city_name_extra";
+
+    @Inject
+    CityWeatherDetailsContract.Presenter presenter;
 
     @Override
     protected int getLayoutResourceId() {
@@ -38,5 +47,14 @@ public class CityWeatherDetailsActivity extends BaseToolbarActivity {
 
             getSupportActionBar().setTitle(cityName);
         }
+
+        DaggerCityWeatherDetailsComponent
+                .builder()
+                .openWeatherMapComponent(((WeatherApplication) getApplication()).getOpenWeatherMapComponent())
+                .build()
+                .inject(this);
+
+        presenter.attachView(this);
+        presenter.loadCityWeatherData(id);
     }
 }

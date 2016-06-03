@@ -13,5 +13,6 @@ public interface CityWeatherDetailsContract {
 
     interface Presenter extends com.akoufatzis.weatherapp.base.Presenter<View> {
 
+        void loadCityWeatherData(long id);
     }
 }

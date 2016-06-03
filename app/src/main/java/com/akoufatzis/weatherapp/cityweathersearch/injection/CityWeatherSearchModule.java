@@ -12,7 +12,7 @@ import dagger.Provides;
  * Created by alexk on 05/05/16.
  */
 @Module
-public class CityWeatherSearchActivityModule {
+public class CityWeatherSearchModule {
 
     @PerActivity
     @Provides
