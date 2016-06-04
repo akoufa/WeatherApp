@@ -48,7 +48,6 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
 
         DaggerCityWeatherSearchComponent
                 .builder()
@@ -76,8 +75,8 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         presenter.detachView(false);
+        super.onDestroy();
     }
 
     @Override

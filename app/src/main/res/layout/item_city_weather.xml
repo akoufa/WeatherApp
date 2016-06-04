@@ -14,7 +14,7 @@
         android:layout_toStartOf="@+id/city_weather_degrees_textview"
         android:ellipsize="end"
         android:gravity="start|center_vertical"
-        android:singleLine="true"
+        android:maxLines="1"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         tools:text="London" />

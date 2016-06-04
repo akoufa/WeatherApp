@@ -22,6 +22,12 @@ public class CityWeatherDetailsPresenter extends MvpBasePresenter<CityWeatherDet
 
         dataManager
                 .getWeatherByCityId(id)
-                .subscribe();
+                .subscribe(cityWeather -> {
+
+                    if (getView() != null) {
+
+                        getView().showCityWeatherData(cityWeather);
+                    }
+                });
     }
 }

@@ -33,7 +33,7 @@
             android:layout_height="48dp"
             android:hint="@string/enter_city_name_hint"
             android:maxLength="30"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textColor="@android:color/white" />
 
         <android.support.v7.widget.RecyclerView

@@ -3,14 +3,19 @@ package com.akoufatzis.weatherapp.cityweatherdetails.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.ImageView;
 
 import com.akoufatzis.weatherapp.R;
 import com.akoufatzis.weatherapp.WeatherApplication;
 import com.akoufatzis.weatherapp.base.BaseToolbarActivity;
 import com.akoufatzis.weatherapp.cityweatherdetails.CityWeatherDetailsContract;
 import com.akoufatzis.weatherapp.cityweatherdetails.injection.DaggerCityWeatherDetailsComponent;
+import com.akoufatzis.weatherapp.model.CityWeather;
+import com.akoufatzis.weatherapp.utilities.WeatherUtils;
 
 import javax.inject.Inject;
+
+import butterknife.BindView;
 
 /**
  * Created by alexk on 03/06/16.
@@ -20,6 +25,9 @@ public class CityWeatherDetailsActivity extends BaseToolbarActivity
 
     public static String CITY_ID_EXTRA = "city_id_extra";
     public static String CITY_NAME_EXTRA = "city_name_extra";
+
+    @BindView(R.id.city_weather_icon_imageview)
+    ImageView cityWeatherIconImageView;
 
     @Inject
     CityWeatherDetailsContract.Presenter presenter;
@@ -56,5 +64,19 @@ public class CityWeatherDetailsActivity extends BaseToolbarActivity
 
         presenter.attachView(this);
         presenter.loadCityWeatherData(id);
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.detachView(false);
+        super.onDestroy();
+    }
+
+    @Override
+    public void showCityWeatherData(CityWeather cityWeather) {
+
+        cityWeatherIconImageView
+                .setImageResource(WeatherUtils
+                        .getArtResourceForWeatherCondition(cityWeather.getWeather().get(0).getId()));
     }
 }
