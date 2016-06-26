@@ -5,6 +5,7 @@ import com.akoufatzis.weatherapp.cityweathersearch.presenter.CityWeatherSearchPr
 import com.akoufatzis.weatherapp.communication.DataManager;
 import com.akoufatzis.weatherapp.model.CityWeather;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -43,6 +44,12 @@ public class CityWeatherSearchPresenterTest {
     public void setUp() {
 
         presenter.attachView(view);
+    }
+
+    @After
+    public void tearDown() {
+
+        presenter.detachView(false);
     }
 
     @Test

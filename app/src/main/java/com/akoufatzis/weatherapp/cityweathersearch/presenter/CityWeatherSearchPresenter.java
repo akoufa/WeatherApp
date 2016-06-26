@@ -8,6 +8,7 @@ import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherSearchContract;
 import com.akoufatzis.weatherapp.communication.DataManager;
 import com.akoufatzis.weatherapp.model.CityWeather;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -21,6 +22,7 @@ import rx.Observable;
 public class CityWeatherSearchPresenter extends MvpBasePresenter<CityWeatherSearchContract.View> implements CityWeatherSearchContract.Presenter {
 
     private DataManager dataManager;
+    private List<CityWeather> cityWeatherList;
 
     @Inject
     public CityWeatherSearchPresenter(DataManager dataManager) {
@@ -49,6 +51,11 @@ public class CityWeatherSearchPresenter extends MvpBasePresenter<CityWeatherSear
 
                     Log.d("onError", error.toString());
                 });
+    }
+
+    @Override
+    public void onFavoriteSelected(CityWeather cityWeather) {
+
     }
 
     @Override

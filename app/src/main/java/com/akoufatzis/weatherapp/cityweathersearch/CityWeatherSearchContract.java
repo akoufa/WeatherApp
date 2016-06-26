@@ -18,5 +18,7 @@ public interface CityWeatherSearchContract {
         void onSearchTextChanged(Observable<CharSequence> searchObservable);
 
         void onCityWeatherSelected(CityWeather cityWeather);
+
+        void onFavoriteSelected(CityWeather cityWeather);
     }
 }

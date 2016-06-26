@@ -11,6 +11,7 @@ public class CityWeather {
     private String name;
     private List<Weather> weather;
     private Main main;
+    private boolean isFavorite;
 
     public long getId() {
         return id;
@@ -34,6 +35,14 @@ public class CityWeather {
 
     public void setWeather(List<Weather> weather) {
         this.weather = weather;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
     public Main getMain() {

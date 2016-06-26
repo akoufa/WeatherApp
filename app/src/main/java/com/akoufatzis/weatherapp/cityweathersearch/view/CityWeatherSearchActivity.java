@@ -2,8 +2,11 @@ package com.akoufatzis.weatherapp.cityweathersearch.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.akoufatzis.weatherapp.R;
@@ -11,9 +14,11 @@ import com.akoufatzis.weatherapp.WeatherApplication;
 import com.akoufatzis.weatherapp.base.BaseToolbarActivity;
 import com.akoufatzis.weatherapp.cityweatherdetails.view.CityWeatherDetailsActivity;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherAdapter;
+import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherAdapter.OnCityWeatherClickListener;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherSearchContract;
 import com.akoufatzis.weatherapp.cityweathersearch.injection.DaggerCityWeatherSearchComponent;
 import com.akoufatzis.weatherapp.model.CityWeather;
+import com.akoufatzis.weatherapp.widgets.ItemOffsetDecoration;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
@@ -22,7 +27,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by alexk on 02/05/16.
@@ -39,6 +43,9 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
     CityWeatherSearchContract.Presenter presenter;
 
     private CityWeatherAdapter cityWeatherAdapter;
+    private boolean isLinearLayoutEnabled;
+    private OnCityWeatherClickListener onCityWeatherClickListener;
+    private MenuItem toggleItem;
 
     @Override
     protected int getLayoutResourceId() {
@@ -55,22 +62,82 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
                 .build()
                 .inject(this);
 
-        presenter.attachView(this);
-
-        // Informing the presenter
-        presenter.onSearchTextChanged(RxTextView.textChanges(searchEditText));
-
-        cityWeatherAdapter = new CityWeatherAdapter(this, new ArrayList<>());
-        cityWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        cityWeatherAdapter = new CityWeatherAdapter(this, new ArrayList<>(), R.layout.item_city_weather_card);
+        cityWeatherRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        ItemOffsetDecoration itemOffsetDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
+        cityWeatherRecyclerView.addItemDecoration(itemOffsetDecoration);
         cityWeatherRecyclerView.setAdapter(cityWeatherAdapter);
-        cityWeatherAdapter.setOnCityWeatherClickListener(cityWeather -> {
+
+        onCityWeatherClickListener = cityWeather -> {
 
             Intent intent = new Intent(this, CityWeatherDetailsActivity.class);
             intent.putExtra(CityWeatherDetailsActivity.CITY_ID_EXTRA, cityWeather.getId());
             intent.putExtra(CityWeatherDetailsActivity.CITY_NAME_EXTRA, cityWeather.getName());
             startActivity(intent);
-        });
+        };
 
+        cityWeatherAdapter.setOnCityWeatherClickListener(onCityWeatherClickListener);
+
+        presenter.attachView(this);
+
+        // Informing the presenter
+        presenter.onSearchTextChanged(RxTextView.textChanges(searchEditText));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.cityweathersearchmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.toggle_list:
+
+                isLinearLayoutEnabled = !isLinearLayoutEnabled;
+                toggleMenuItem(item);
+                toggleListGridLayout();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void toggleMenuItem(MenuItem item) {
+
+        if (isLinearLayoutEnabled) {
+
+            item.setIcon(R.drawable.ic_view_module_white_24dp);
+
+        } else {
+
+            item.setIcon(R.drawable.ic_toc_white_24dp);
+        }
+    }
+
+    /**
+     * Toggles between a list and a grid recyclerview
+     */
+    private void toggleListGridLayout() {
+
+        cityWeatherAdapter.setOnCityWeatherClickListener(null);
+        List<CityWeather> cityWeatherList = cityWeatherAdapter.getCityWeatherList();
+
+        if (isLinearLayoutEnabled) {
+
+            cityWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            cityWeatherAdapter = new CityWeatherAdapter(this, new ArrayList<>(), R.layout.item_city_weather);
+
+        } else {
+            cityWeatherRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+            cityWeatherAdapter = new CityWeatherAdapter(this, new ArrayList<>(), R.layout.item_city_weather_card);
+        }
+
+        cityWeatherAdapter.setOnCityWeatherClickListener(onCityWeatherClickListener);
+        cityWeatherAdapter.setCityWeatherList(cityWeatherList);
+        cityWeatherRecyclerView.setAdapter(cityWeatherAdapter);
     }
 
     @Override

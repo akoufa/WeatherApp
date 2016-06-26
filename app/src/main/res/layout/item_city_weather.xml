@@ -4,19 +4,32 @@
     android:id="@+id/city_weather_item_layout"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="?selectableItemBackground">
+    android:background="@color/primary"
+    android:foreground="?selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/city_weather_favorite_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5dp"
+        android:background="@color/accent"
+        android:paddingEnd="6dp"
+        android:paddingStart="6dp"
+        android:src="@drawable/ic_favorite_border_white_36dp" />
 
     <TextView
         android:id="@+id/city_name_textview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="5dp"
+        android:layout_toEndOf="@+id/city_weather_favorite_imageview"
         android:layout_toStartOf="@+id/city_weather_degrees_textview"
         android:ellipsize="end"
         android:gravity="start|center_vertical"
         android:maxLines="1"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:textSize="22sp"
         tools:text="London" />
 
     <TextView

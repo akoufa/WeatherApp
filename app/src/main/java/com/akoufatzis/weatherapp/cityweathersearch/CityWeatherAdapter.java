@@ -1,6 +1,7 @@
 package com.akoufatzis.weatherapp.cityweathersearch;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,30 +22,41 @@ import butterknife.OnClick;
 /**
  * Created by alexk on 03/05/16.
  */
-public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.CityWeatherViewHolder> {
+public class CityWeatherAdapter
+        extends RecyclerView.Adapter<CityWeatherAdapter.CityWeatherViewHolder> {
 
     private List<CityWeather> cityWeatherList;
-    private OnCityWeatherClickListener listener;
+    private OnCityWeatherClickListener clickListener;
+    private OnCityWeatherFavoriteSelectListener favoriteListener;
     private Context context;
+    @LayoutRes
+    private int layoutId;
 
     public interface OnCityWeatherClickListener {
 
         void onCityWeatherClicked(CityWeather cityWeather);
     }
 
-    public CityWeatherAdapter(Context context, List<CityWeather> cityWeatherList) {
+    public interface OnCityWeatherFavoriteSelectListener {
+
+        void onCityWeatherFavoriteSelected(CityWeather cityWeather);
+    }
+
+    public CityWeatherAdapter(Context context, List<CityWeather> cityWeatherList, @LayoutRes int layoutId) {
 
         this.context = context;
         this.cityWeatherList = cityWeatherList;
+        this.layoutId = layoutId;
     }
 
     @Override
     public CityWeatherViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         Context context = parent.getContext();
-
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = inflater.inflate(R.layout.item_city_weather, parent, false);
+        View itemView;
+        itemView = inflater.inflate(layoutId, parent, false);
+
         return new CityWeatherViewHolder(itemView);
     }
 
@@ -59,17 +71,30 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         if (cityWeather.getMain() != null) {
 
-            weatherInCelsius = WeatherUtils.getDegreesRepresentation(context, WeatherUtils.convertToCelsius(cityWeather.getMain().getTemp()));
+            weatherInCelsius = WeatherUtils.getDegreesRepresentation(context,
+                    WeatherUtils.convertToCelsius(cityWeather.getMain().getTemp()));
         }
 
-        holder.cityWeatherDegressTextView.setText(weatherInCelsius);
+        holder.cityWeatherDegreesTextView.setText(weatherInCelsius);
         holder.cityWeatherDescriptionTextView.setText(cityWeather.getWeather().get(0).getMain());
-        holder.cityWeatherIconImageView.setImageResource(WeatherUtils.getArtResourceForWeatherCondition(cityWeather.getWeather().get(0).getId()));
+        holder.cityWeatherIconImageView.setImageResource(WeatherUtils
+                .getArtResourceForWeatherCondition(cityWeather.getWeather().get(0).getId()));
+
+        if (cityWeather.isFavorite()) {
+
+            holder.cityWeatherFavoriteImageView.setImageResource(R.drawable.ic_favorite_white_36dp);
+        } else {
+            holder.cityWeatherFavoriteImageView.setImageResource(R.drawable.ic_favorite_border_white_36dp);
+        }
     }
 
     @Override
     public int getItemCount() {
         return cityWeatherList.size();
+    }
+
+    public List<CityWeather> getCityWeatherList() {
+        return cityWeatherList;
     }
 
     public void addCityWeather(CityWeather cityWeather) {
@@ -79,9 +104,26 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         notifyItemInserted(0);
     }
 
+    public void setCityWeatherList(List<CityWeather> cityWeatherList) {
+
+        this.cityWeatherList = cityWeatherList;
+        notifyDataSetChanged();
+    }
+
     public void setOnCityWeatherClickListener(OnCityWeatherClickListener listener) {
 
-        this.listener = listener;
+        this.clickListener = listener;
+    }
+
+    public void setOnCityWeatherFavoriteSelectListener(OnCityWeatherFavoriteSelectListener listener) {
+
+        this.favoriteListener = favoriteListener;
+    }
+
+    public void clearListeners() {
+
+        favoriteListener = null;
+        clickListener = null;
     }
 
     public class CityWeatherViewHolder extends RecyclerView.ViewHolder {
@@ -89,19 +131,36 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         @BindView(R.id.city_name_textview)
         TextView cityNameTextView;
         @BindView(R.id.city_weather_degrees_textview)
-        TextView cityWeatherDegressTextView;
+        TextView cityWeatherDegreesTextView;
         @BindView(R.id.city_weather_description_textview)
         TextView cityWeatherDescriptionTextView;
         @BindView(R.id.city_weather_icon_imageview)
         ImageView cityWeatherIconImageView;
+        @BindView(R.id.city_weather_favorite_imageview)
+        ImageView cityWeatherFavoriteImageView;
+
 
         @OnClick(R.id.city_weather_item_layout)
         public void onCityWeatherItemClicked() {
 
-            if (listener != null && cityWeatherList.size() > getAdapterPosition()) {
+            if (clickListener != null && cityWeatherList.size() > getAdapterPosition()) {
 
-                listener.onCityWeatherClicked(cityWeatherList.get(getAdapterPosition()));
+                clickListener.onCityWeatherClicked(cityWeatherList.get(getAdapterPosition()));
             }
+        }
+
+        @OnClick(R.id.city_weather_favorite_imageview)
+        public void onCityWeatherFavoriteSelected() {
+
+            CityWeather cityWeather = cityWeatherList.get(getAdapterPosition());
+            cityWeather.setFavorite(!cityWeather.isFavorite());
+
+            if (favoriteListener != null && cityWeatherList.size() > getAdapterPosition()) {
+
+                favoriteListener.onCityWeatherFavoriteSelected(cityWeather);
+            }
+
+            notifyItemChanged(getAdapterPosition());
         }
 
         CityWeatherViewHolder(View itemView) {
