@@ -1,4 +1,4 @@
-package com.akoufatzis.weatherapp.communication.memory;
+package com.akoufatzis.weatherapp.data.memory;
 
 import java.util.HashMap;
 

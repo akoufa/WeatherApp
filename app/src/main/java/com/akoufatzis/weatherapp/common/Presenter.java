@@ -1,4 +1,4 @@
-package com.akoufatzis.weatherapp.base;
+package com.akoufatzis.weatherapp.common;
 
 /**
  * Created by alexk on 01/05/16.

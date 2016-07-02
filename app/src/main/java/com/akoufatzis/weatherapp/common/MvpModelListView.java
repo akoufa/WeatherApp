@@ -1,4 +1,4 @@
-package com.akoufatzis.weatherapp.base;
+package com.akoufatzis.weatherapp.common;
 
 import java.util.List;
 

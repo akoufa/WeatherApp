@@ -2,12 +2,12 @@ package com.akoufatzis.weatherapp;
 
 import android.app.Application;
 
-import com.akoufatzis.weatherapp.application.injection.components.AppComponent;
-import com.akoufatzis.weatherapp.application.injection.components.DaggerAppComponent;
-import com.akoufatzis.weatherapp.application.injection.components.DaggerOpenWeatherMapComponent;
-import com.akoufatzis.weatherapp.application.injection.components.OpenWeatherMapComponent;
-import com.akoufatzis.weatherapp.application.injection.modules.AppModule;
-import com.akoufatzis.weatherapp.application.injection.modules.NetworkModule;
+import com.akoufatzis.weatherapp.injection.components.AppComponent;
+import com.akoufatzis.weatherapp.injection.components.DaggerAppComponent;
+import com.akoufatzis.weatherapp.injection.components.DaggerOpenWeatherMapComponent;
+import com.akoufatzis.weatherapp.injection.components.OpenWeatherMapComponent;
+import com.akoufatzis.weatherapp.injection.modules.AppModule;
+import com.akoufatzis.weatherapp.injection.modules.NetworkModule;
 
 /**
  * Created by alexk on 05/05/16.

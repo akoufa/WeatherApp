@@ -1,6 +1,6 @@
 package com.akoufatzis.weatherapp.cityweatherdetails;
 
-import com.akoufatzis.weatherapp.base.MvpView;
+import com.akoufatzis.weatherapp.common.MvpView;
 import com.akoufatzis.weatherapp.model.CityWeather;
 
 /**
@@ -13,7 +13,7 @@ public interface CityWeatherDetailsContract {
         void showCityWeatherData(CityWeather cityWeather);
     }
 
-    interface Presenter extends com.akoufatzis.weatherapp.base.Presenter<View> {
+    interface Presenter extends com.akoufatzis.weatherapp.common.Presenter<View> {
 
         void loadCityWeatherData(long id);
     }

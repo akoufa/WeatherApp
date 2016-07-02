@@ -1,4 +1,4 @@
-package com.akoufatzis.weatherapp.base;
+package com.akoufatzis.weatherapp.common;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

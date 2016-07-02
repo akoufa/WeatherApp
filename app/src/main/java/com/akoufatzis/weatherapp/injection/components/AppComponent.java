@@ -1,10 +1,10 @@
-package com.akoufatzis.weatherapp.application.injection.components;
+package com.akoufatzis.weatherapp.injection.components;
 
 import android.app.Application;
 
 import com.akoufatzis.weatherapp.WeatherApplication;
-import com.akoufatzis.weatherapp.application.injection.modules.AppModule;
-import com.akoufatzis.weatherapp.application.injection.modules.NetworkModule;
+import com.akoufatzis.weatherapp.injection.modules.AppModule;
+import com.akoufatzis.weatherapp.injection.modules.NetworkModule;
 
 import javax.inject.Singleton;
 

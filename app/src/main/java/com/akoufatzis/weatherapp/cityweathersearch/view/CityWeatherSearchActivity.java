@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import com.akoufatzis.weatherapp.R;
 import com.akoufatzis.weatherapp.WeatherApplication;
-import com.akoufatzis.weatherapp.base.BaseToolbarActivity;
+import com.akoufatzis.weatherapp.common.BaseToolbarActivity;
 import com.akoufatzis.weatherapp.cityweatherdetails.view.CityWeatherDetailsActivity;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherAdapter;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherAdapter.OnCityWeatherClickListener;

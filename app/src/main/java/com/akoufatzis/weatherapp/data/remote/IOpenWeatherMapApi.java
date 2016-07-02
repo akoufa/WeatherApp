@@ -1,4 +1,4 @@
-package com.akoufatzis.weatherapp.communication;
+package com.akoufatzis.weatherapp.data.remote;
 
 import com.akoufatzis.weatherapp.model.CityWeather;
 

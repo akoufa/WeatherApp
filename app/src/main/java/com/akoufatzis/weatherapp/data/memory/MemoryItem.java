@@ -1,4 +1,4 @@
-package com.akoufatzis.weatherapp.communication.memory;
+package com.akoufatzis.weatherapp.data.memory;
 
 /**
  * Created by alexk on 02/05/16.

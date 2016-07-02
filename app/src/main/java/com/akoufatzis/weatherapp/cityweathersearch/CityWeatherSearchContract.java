@@ -1,6 +1,6 @@
 package com.akoufatzis.weatherapp.cityweathersearch;
 
-import com.akoufatzis.weatherapp.base.MvpModelListView;
+import com.akoufatzis.weatherapp.common.MvpModelListView;
 import com.akoufatzis.weatherapp.model.CityWeather;
 
 import rx.Observable;
@@ -13,7 +13,7 @@ public interface CityWeatherSearchContract {
     interface View extends MvpModelListView<CityWeather> {
     }
 
-    interface Presenter extends com.akoufatzis.weatherapp.base.Presenter<View> {
+    interface Presenter extends com.akoufatzis.weatherapp.common.Presenter<View> {
 
         void onSearchTextChanged(Observable<CharSequence> searchObservable);
 

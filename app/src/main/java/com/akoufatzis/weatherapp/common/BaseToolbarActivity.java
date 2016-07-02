@@ -1,4 +1,4 @@
-package com.akoufatzis.weatherapp.base;
+package com.akoufatzis.weatherapp.common;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

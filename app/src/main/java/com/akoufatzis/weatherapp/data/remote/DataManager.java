@@ -1,8 +1,8 @@
-package com.akoufatzis.weatherapp.communication;
+package com.akoufatzis.weatherapp.data.remote;
 
 import com.akoufatzis.weatherapp.BuildConfig;
-import com.akoufatzis.weatherapp.application.injection.scopes.PerApplication;
-import com.akoufatzis.weatherapp.communication.memory.MemoryCache;
+import com.akoufatzis.weatherapp.data.memory.MemoryCache;
+import com.akoufatzis.weatherapp.injection.scopes.PerApplication;
 import com.akoufatzis.weatherapp.model.CityWeather;
 
 import javax.inject.Inject;

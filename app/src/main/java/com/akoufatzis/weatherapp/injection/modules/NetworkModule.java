@@ -1,6 +1,6 @@
-package com.akoufatzis.weatherapp.application.injection.modules;
+package com.akoufatzis.weatherapp.injection.modules;
 
-import com.akoufatzis.weatherapp.communication.GsonCreator;
+import com.akoufatzis.weatherapp.data.remote.GsonCreator;
 import com.google.gson.Gson;
 
 import javax.inject.Singleton;

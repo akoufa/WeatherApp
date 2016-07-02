@@ -1,4 +1,4 @@
-package com.akoufatzis.weatherapp.application.injection.modules;
+package com.akoufatzis.weatherapp.injection.modules;
 
 import android.app.Application;
 

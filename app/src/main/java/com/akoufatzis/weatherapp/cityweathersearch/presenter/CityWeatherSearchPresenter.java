@@ -2,10 +2,10 @@ package com.akoufatzis.weatherapp.cityweathersearch.presenter;
 
 import android.util.Log;
 
-import com.akoufatzis.weatherapp.application.injection.scopes.PerActivity;
-import com.akoufatzis.weatherapp.base.MvpBasePresenter;
+import com.akoufatzis.weatherapp.injection.scopes.PerActivity;
+import com.akoufatzis.weatherapp.common.MvpBasePresenter;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherSearchContract;
-import com.akoufatzis.weatherapp.communication.DataManager;
+import com.akoufatzis.weatherapp.data.remote.DataManager;
 import com.akoufatzis.weatherapp.model.CityWeather;
 
 import java.util.concurrent.TimeUnit;

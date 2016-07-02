@@ -1,7 +1,7 @@
 package com.akoufatzis.weatherapp.cityweatherdetails.injection;
 
-import com.akoufatzis.weatherapp.application.injection.components.OpenWeatherMapComponent;
-import com.akoufatzis.weatherapp.application.injection.scopes.PerActivity;
+import com.akoufatzis.weatherapp.injection.components.OpenWeatherMapComponent;
+import com.akoufatzis.weatherapp.injection.scopes.PerActivity;
 import com.akoufatzis.weatherapp.cityweatherdetails.view.CityWeatherDetailsActivity;
 
 import dagger.Component;

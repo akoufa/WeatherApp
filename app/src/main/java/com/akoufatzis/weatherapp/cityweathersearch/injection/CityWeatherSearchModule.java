@@ -1,9 +1,9 @@
 package com.akoufatzis.weatherapp.cityweathersearch.injection;
 
-import com.akoufatzis.weatherapp.application.injection.scopes.PerActivity;
+import com.akoufatzis.weatherapp.injection.scopes.PerActivity;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherSearchContract;
 import com.akoufatzis.weatherapp.cityweathersearch.presenter.CityWeatherSearchPresenter;
-import com.akoufatzis.weatherapp.communication.DataManager;
+import com.akoufatzis.weatherapp.data.remote.DataManager;
 
 import dagger.Module;
 import dagger.Provides;
