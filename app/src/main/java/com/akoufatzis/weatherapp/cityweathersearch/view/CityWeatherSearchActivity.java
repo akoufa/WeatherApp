@@ -11,12 +11,13 @@ import android.widget.EditText;
 
 import com.akoufatzis.weatherapp.R;
 import com.akoufatzis.weatherapp.WeatherApplication;
-import com.akoufatzis.weatherapp.common.BaseToolbarActivity;
 import com.akoufatzis.weatherapp.cityweatherdetails.view.CityWeatherDetailsActivity;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherAdapter;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherAdapter.OnCityWeatherClickListener;
+import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherAdapter.OnCityWeatherFavoriteSelectListener;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherSearchContract;
 import com.akoufatzis.weatherapp.cityweathersearch.injection.DaggerCityWeatherSearchComponent;
+import com.akoufatzis.weatherapp.common.BaseToolbarActivity;
 import com.akoufatzis.weatherapp.model.CityWeather;
 import com.akoufatzis.weatherapp.widgets.ItemOffsetDecoration;
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -45,7 +46,7 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
     private CityWeatherAdapter cityWeatherAdapter;
     private boolean isLinearLayoutEnabled;
     private OnCityWeatherClickListener onCityWeatherClickListener;
-    private MenuItem toggleItem;
+    private OnCityWeatherFavoriteSelectListener onCityWeatherFavoriteSelectListener;
 
     @Override
     protected int getLayoutResourceId() {
@@ -76,7 +77,13 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
             startActivity(intent);
         };
 
+        onCityWeatherFavoriteSelectListener = cityWeather -> {
+
+            presenter.onFavoriteSelected(cityWeather);
+        };
+
         cityWeatherAdapter.setOnCityWeatherClickListener(onCityWeatherClickListener);
+        cityWeatherAdapter.setOnCityWeatherFavoriteSelectListener(onCityWeatherFavoriteSelectListener);
 
         presenter.attachView(this);
 
@@ -97,7 +104,7 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
             case R.id.toggle_list:
 
                 isLinearLayoutEnabled = !isLinearLayoutEnabled;
-                toggleMenuItem(item);
+                toggleMenuItem(item, isLinearLayoutEnabled);
                 toggleListGridLayout();
                 return true;
             default:
@@ -105,7 +112,7 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
         }
     }
 
-    private void toggleMenuItem(MenuItem item) {
+    private void toggleMenuItem(MenuItem item, boolean isLinearLayoutEnabled) {
 
         if (isLinearLayoutEnabled) {
 
@@ -136,12 +143,14 @@ public class CityWeatherSearchActivity extends BaseToolbarActivity implements Ci
         }
 
         cityWeatherAdapter.setOnCityWeatherClickListener(onCityWeatherClickListener);
+        cityWeatherAdapter.setOnCityWeatherFavoriteSelectListener(onCityWeatherFavoriteSelectListener);
         cityWeatherAdapter.setCityWeatherList(cityWeatherList);
         cityWeatherRecyclerView.setAdapter(cityWeatherAdapter);
     }
 
     @Override
     protected void onDestroy() {
+        cityWeatherAdapter.clearListeners();
         presenter.detachView(false);
         super.onDestroy();
     }

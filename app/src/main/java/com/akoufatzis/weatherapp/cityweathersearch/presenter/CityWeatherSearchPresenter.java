@@ -2,10 +2,10 @@ package com.akoufatzis.weatherapp.cityweathersearch.presenter;
 
 import android.util.Log;
 
-import com.akoufatzis.weatherapp.injection.scopes.PerActivity;
-import com.akoufatzis.weatherapp.common.MvpBasePresenter;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherSearchContract;
+import com.akoufatzis.weatherapp.common.MvpBasePresenter;
 import com.akoufatzis.weatherapp.data.remote.DataManager;
+import com.akoufatzis.weatherapp.injection.scopes.PerActivity;
 import com.akoufatzis.weatherapp.model.CityWeather;
 
 import java.util.concurrent.TimeUnit;
@@ -40,6 +40,12 @@ public class CityWeatherSearchPresenter extends MvpBasePresenter<CityWeatherSear
                 .distinctUntilChanged()
                 // use switchmap to cancel the previous request
                 .switchMap(dataManager::getWeatherByCityName)
+                .flatMap(cityWeather ->
+                        dataManager.isCityWeatherFavorite(cityWeather.getId())
+                                .flatMap(favorite -> {
+                                    cityWeather.setFavorite(favorite);
+                                    return Observable.<CityWeather>just(cityWeather);
+                                }))
                 .subscribe(cityWeather -> {
 
                     if (getView() != null) {
@@ -55,6 +61,17 @@ public class CityWeatherSearchPresenter extends MvpBasePresenter<CityWeatherSear
     @Override
     public void onFavoriteSelected(CityWeather cityWeather) {
 
+        if (cityWeather.isFavorite()) {
+
+            dataManager.addCityWeatherToFavorites(cityWeather)
+                    .subscribe(aVoid -> {
+                    }, Throwable::printStackTrace);
+        } else {
+
+            dataManager.removeCityWeatherFromFavorites(cityWeather)
+                    .subscribe(aVoid -> {
+                    }, Throwable::printStackTrace);
+        }
     }
 
     @Override

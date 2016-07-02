@@ -61,4 +61,30 @@ public class CityWeather {
 
         return city;
     }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (o == this) {
+
+            return true;
+        }
+
+        if (!(o instanceof CityWeather)) {
+
+            return false;
+        }
+
+        CityWeather other = (CityWeather) o;
+
+        return id == other.id;
+    }
+
+    @Override
+    public int hashCode() {
+
+        int result = 17;
+        result = 31 * result + (int) (id ^ id >>> 32);
+        return result;
+    }
 }

@@ -1,8 +1,10 @@
 package com.akoufatzis.weatherapp.injection.components;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.akoufatzis.weatherapp.WeatherApplication;
+import com.akoufatzis.weatherapp.data.local.DatabaseHelper;
 import com.akoufatzis.weatherapp.injection.modules.AppModule;
 import com.akoufatzis.weatherapp.injection.modules.NetworkModule;
 
@@ -27,5 +29,9 @@ public interface AppComponent {
 
     Application getApplication();
 
+    Context getApplicationContext();
+
     Retrofit getRetrofit();
+
+    DatabaseHelper getDatabaseHelper();
 }
