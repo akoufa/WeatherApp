@@ -40,6 +40,7 @@ public class Db {
                 CityWeather cityWeather = new CityWeather();
                 cityWeather.setId(Long.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ID))));
                 cityWeather.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_FAVORITE)) == 1);
+                cursor.close();
                 return cityWeather;
             } else {
 

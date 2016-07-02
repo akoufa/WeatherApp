@@ -93,6 +93,8 @@ public class DatabaseHelper {
                 cityWeatherList.add(Db.CityWeatherTable.parseCursor(cursor));
             }
 
+            cursor.close();
+
             return cityWeatherList;
         });
     }
