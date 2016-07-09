@@ -7,9 +7,9 @@ import android.widget.ImageView;
 
 import com.akoufatzis.weatherapp.R;
 import com.akoufatzis.weatherapp.WeatherApplication;
-import com.akoufatzis.weatherapp.common.BaseToolbarActivity;
 import com.akoufatzis.weatherapp.cityweatherdetails.CityWeatherDetailsContract;
 import com.akoufatzis.weatherapp.cityweatherdetails.injection.DaggerCityWeatherDetailsComponent;
+import com.akoufatzis.weatherapp.common.BaseToolbarActivity;
 import com.akoufatzis.weatherapp.model.CityWeather;
 import com.akoufatzis.weatherapp.utilities.WeatherUtils;
 

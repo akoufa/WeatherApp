@@ -10,4 +10,8 @@
     <string name="search_item">Search</string>
     <string name="favorite_item">Favorites</string>
 
+    <string name="nearby">Nearby</string>
+    <string name="favorites">Favorites</string>
+    <string name="search">Search</string>
+
 </resources>

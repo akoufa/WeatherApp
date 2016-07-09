@@ -1,7 +1,7 @@
 package com.akoufatzis.weatherapp.cityweatherdetails.presenter;
 
-import com.akoufatzis.weatherapp.common.MvpBasePresenter;
 import com.akoufatzis.weatherapp.cityweatherdetails.CityWeatherDetailsContract;
+import com.akoufatzis.weatherapp.common.MvpBasePresenter;
 import com.akoufatzis.weatherapp.data.remote.DataManager;
 
 /**

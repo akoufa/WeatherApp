@@ -1,7 +1,7 @@
 package com.akoufatzis.weatherapp.injection.modules;
 
-import com.akoufatzis.weatherapp.injection.scopes.PerApplication;
 import com.akoufatzis.weatherapp.data.remote.IOpenWeatherMapApi;
+import com.akoufatzis.weatherapp.injection.scopes.PerApplication;
 
 import dagger.Module;
 import dagger.Provides;

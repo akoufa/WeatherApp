@@ -17,7 +17,7 @@ import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherAdapter.OnCityWeat
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherAdapter.OnCityWeatherFavoriteSelectListener;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherSearchContract;
 import com.akoufatzis.weatherapp.cityweathersearch.injection.DaggerCityWeatherSearchComponent;
-import com.akoufatzis.weatherapp.common.BaseToolbarActivity;
+import com.akoufatzis.weatherapp.common.BaseBottomBarActivity;
 import com.akoufatzis.weatherapp.model.CityWeather;
 import com.akoufatzis.weatherapp.widgets.ItemOffsetDecoration;
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -32,7 +32,7 @@ import butterknife.BindView;
 /**
  * Created by alexk on 02/05/16.
  */
-public class CityWeatherSearchActivity extends BaseToolbarActivity implements CityWeatherSearchContract.View {
+public class CityWeatherSearchActivity extends BaseBottomBarActivity implements CityWeatherSearchContract.View {
 
     @BindView(R.id.citiesweathersearch_edittext)
     EditText searchEditText;

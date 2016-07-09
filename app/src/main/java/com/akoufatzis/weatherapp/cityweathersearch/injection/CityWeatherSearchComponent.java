@@ -1,8 +1,8 @@
 package com.akoufatzis.weatherapp.cityweathersearch.injection;
 
+import com.akoufatzis.weatherapp.cityweathersearch.view.CityWeatherSearchActivity;
 import com.akoufatzis.weatherapp.injection.components.OpenWeatherMapComponent;
 import com.akoufatzis.weatherapp.injection.scopes.PerActivity;
-import com.akoufatzis.weatherapp.cityweathersearch.view.CityWeatherSearchActivity;
 
 import dagger.Component;
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/bottom_bar_item_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/bottom_bar_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+</merge>

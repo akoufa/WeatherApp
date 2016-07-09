@@ -1,9 +1,9 @@
 package com.akoufatzis.weatherapp.cityweatherdetails.injection;
 
-import com.akoufatzis.weatherapp.injection.scopes.PerActivity;
 import com.akoufatzis.weatherapp.cityweatherdetails.CityWeatherDetailsContract;
 import com.akoufatzis.weatherapp.cityweatherdetails.presenter.CityWeatherDetailsPresenter;
 import com.akoufatzis.weatherapp.data.remote.DataManager;
+import com.akoufatzis.weatherapp.injection.scopes.PerActivity;
 
 import dagger.Module;
 import dagger.Provides;
