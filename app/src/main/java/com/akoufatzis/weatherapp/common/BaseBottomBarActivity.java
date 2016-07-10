@@ -1,5 +1,6 @@
 package com.akoufatzis.weatherapp.common;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -8,6 +9,7 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 
 import com.akoufatzis.weatherapp.R;
+import com.akoufatzis.weatherapp.cityweatherfavorite.view.CityWeatherFavoriteActivity;
 import com.akoufatzis.weatherapp.cityweathersearch.view.CityWeatherSearchActivity;
 import com.akoufatzis.weatherapp.widgets.BottomBarItem;
 import com.akoufatzis.weatherapp.widgets.BottomBarItem.BottomBarItemOption;
@@ -42,7 +44,7 @@ public abstract class BaseBottomBarActivity extends BaseToolbarActivity implemen
         bottomBarItems.add(new BottomBarItem(this, new BottomBarItemOption(R.drawable.ic_search_white_24dp, R.string.search, android.R.color.white, 0)));
         bottomBarItems.add(new BottomBarItem(this, new BottomBarItemOption(R.drawable.ic_favorite_white_24dp, R.string.favorites, android.R.color.white, 1)));
         bottomBarItems.add(new BottomBarItem(this, new BottomBarItemOption(R.drawable.ic_gps_fixed_white_24dp, R.string.nearby, android.R.color.white, 2)));
-        bottomBarLayout = new BottomBarLayout(this, bottomBarItems);
+        bottomBarLayout = new BottomBarLayout(this, bottomBarItems, getBottomBarActivityIndex(this));
         bottomBarLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.accent));
 
         CoordinatorLayout.LayoutParams params
@@ -66,38 +68,48 @@ public abstract class BaseBottomBarActivity extends BaseToolbarActivity implemen
     @Override
     public void onBottomBarItemClicked(BottomBarItem bottomBarItem) {
 
-        Intent intent = null;
-        switch (bottomBarItem.getIndex()) {
+        if (bottomBarItem.getIndex() != getBottomBarActivityIndex(this)) {
 
-            case 0:
+            Intent intent = null;
+            switch (bottomBarItem.getIndex()) {
 
-                if (this instanceof CityWeatherSearchActivity) {
+                case 0:
+                    intent = new Intent(this, CityWeatherSearchActivity.class);
+                    break;
 
-                    return;
-                }
-                intent = new Intent(this, CityWeatherSearchActivity.class);
-                break;
+                case 1:
 
-            case 1:
+                    intent = new Intent(this, CityWeatherFavoriteActivity.class);
+                    break;
 
-                if (this instanceof CityWeatherSearchActivity) {
+                default:
 
-                    return;
-                }
-                intent = new Intent(this, CityWeatherSearchActivity.class);
-                break;
-
-            default:
-
-                // TODO: Implement this
+                    // TODO: Implement this
 //                intent = new Intent(this, Nearby.class);
-                break;
+                    break;
+            }
+
+            if (intent != null) {
+
+                // If already running intent will be delivered to onNewIntent() Method else fresh activity and no back button history
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            }
         }
+    }
 
-        if (intent != null) {
+    private int getBottomBarActivityIndex(Activity currentActivity) {
 
-            // If already running intent will be delivered to onNewIntent() Method else fresh activity and no back button history
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        if (currentActivity instanceof CityWeatherSearchActivity) {
+
+            return 0;
+
+        } else if (currentActivity instanceof CityWeatherFavoriteActivity) {
+
+            return 1;
+        } else {
+
+            return 2;
         }
     }
 }

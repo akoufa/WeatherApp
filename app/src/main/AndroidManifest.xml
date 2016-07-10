@@ -25,6 +25,7 @@
             android:name=".cityweathersearch.view.CityWeatherSearchActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".cityweatherdetails.view.CityWeatherDetailsActivity" />
+        <activity android:name=".cityweatherfavorite.view.CityWeatherFavoriteActivity"></activity>
     </application>
 
 </manifest>

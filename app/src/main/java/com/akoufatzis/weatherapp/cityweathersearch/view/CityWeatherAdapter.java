@@ -1,4 +1,4 @@
-package com.akoufatzis.weatherapp.cityweathersearch;
+package com.akoufatzis.weatherapp.cityweathersearch.view;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;

@@ -25,9 +25,9 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
         void onBottomBarItemClicked(BottomBarItem item);
     }
 
-    public BottomBarLayout(Context context, List<BottomBarItem> bottomBarItems) {
+    public BottomBarLayout(Context context, List<BottomBarItem> bottomBarItems, int selectedIndex) {
         super(context);
-        setBottomBarItems(bottomBarItems);
+        setBottomBarItems(bottomBarItems, selectedIndex);
         init(context);
     }
 
@@ -62,7 +62,7 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
         this.listener = listener;
     }
 
-    public void setBottomBarItems(List<BottomBarItem> bottomBarItems) {
+    public void setBottomBarItems(List<BottomBarItem> bottomBarItems, int selectedIndex) {
 
         if (bottomBarItems.size() < 3 || bottomBarItems.size() > 5) {
 
@@ -79,7 +79,7 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
             bottomBarItem.setOnClickListener(this);
 
             // Set the first item as selected
-            if (i == 0) {
+            if (i == selectedIndex) {
 
                 bottomBarItem.setSelected(true);
             } else {
@@ -93,7 +93,7 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
         }
     }
 
-    private void setSelectedState(List<BottomBarItem> bottomBarItems, int selectedIndex) {
+    public void setSelectedState(List<BottomBarItem> bottomBarItems, int selectedIndex) {
 
         for (BottomBarItem bottomBarItem : bottomBarItems) {
 
@@ -110,7 +110,7 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
         if (listener != null) {
 
             BottomBarItem bottomBarItem = (BottomBarItem) v;
-            setSelectedState(bottomBarItems, bottomBarItem.getIndex());
+//            setSelectedState(bottomBarItems, bottomBarItem.getIndex());
             // Passing the onClick further to our listener
             listener.onBottomBarItemClicked(bottomBarItem);
         }
