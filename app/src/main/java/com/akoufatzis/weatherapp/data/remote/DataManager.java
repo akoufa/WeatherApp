@@ -37,22 +37,19 @@ public class DataManager {
     public Observable<CityWeather> getWeatherByCityName(String name) {
 
         return openWeatherMapService
-                .getWeatherByCityName(name, apiKey)
-                .compose(applySchedulers());
+                .getWeatherByCityName(name, apiKey);
     }
 
     public Observable<CityWeather> getWeatherByCityId(long id) {
 
         return openWeatherMapService
-                .getWeatherByCityId(id, apiKey)
-                .compose(applySchedulers());
+                .getWeatherByCityId(id, apiKey);
     }
 
     public Observable<Void> addCityWeatherToFavorites(CityWeather cityWeather) {
 
         return databaseHelper
-                .addCityWeatherToDb(cityWeather)
-                .compose(applySchedulers());
+                .addCityWeatherToDb(cityWeather);
     }
 
     public Observable<Boolean> isCityWeatherFavorite(long id) {
@@ -67,27 +64,24 @@ public class DataManager {
 
                         return false;
                     }
-                })
-                .compose(applySchedulers());
+                });
     }
 
     public Observable<List<CityWeather>> getAllFavoriteCityWeather() {
 
         return databaseHelper
-                .getAllFavoriteCityWeather()
-                .compose(applySchedulers());
+                .getAllFavoriteCityWeather();
     }
 
     public Observable<Void> removeCityWeatherFromFavorites(CityWeather cityWeather) {
 
         return databaseHelper
-                .deleteFavoriteCityWeatherById(cityWeather.getId())
-                .compose(applySchedulers());
+                .deleteFavoriteCityWeatherById(cityWeather.getId());
     }
 
     //Schedulers Transformer
 
-    private <T> Observable.Transformer<T, T> applySchedulers() {
+    public static <T> Observable.Transformer<T, T> applySchedulers() {
 
         return observable -> observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

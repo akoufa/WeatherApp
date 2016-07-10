@@ -13,6 +13,12 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
+
+import static com.akoufatzis.weatherapp.data.remote.DataManager.applySchedulers;
 
 /**
  * Created by alexk on 01/05/16.
@@ -22,6 +28,7 @@ public class CityWeatherSearchPresenter extends MvpBasePresenter<CityWeatherSear
         implements CityWeatherSearchContract.Presenter {
 
     private DataManager dataManager;
+    private CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     @Inject
     public CityWeatherSearchPresenter(DataManager dataManager) {
@@ -30,22 +37,35 @@ public class CityWeatherSearchPresenter extends MvpBasePresenter<CityWeatherSear
     }
 
     @Override
+    public void detachView(boolean retainInstance) {
+
+        if (compositeSubscription != null && !compositeSubscription.isUnsubscribed()) {
+
+            compositeSubscription.unsubscribe();
+        }
+        super.detachView(retainInstance);
+    }
+
+    @Override
     public void onSearchTextChanged(Observable<CharSequence> searchObservable) {
 
-        searchObservable
+        Subscription subscription = searchObservable
                 .debounce(300, TimeUnit.MILLISECONDS)
+                // Th
+                .observeOn(AndroidSchedulers.mainThread())
                 .map(CharSequence::toString)
                 .map(String::trim)
                 .filter(searchTerm -> searchTerm.length() > 2)
                 .distinctUntilChanged()
                 // use switchmap to cancel the previous request
-                .switchMap(dataManager::getWeatherByCityName)
+                .switchMap(searchTerm -> dataManager.getWeatherByCityName(searchTerm).subscribeOn(Schedulers.io()))
                 .flatMap(cityWeather ->
                         dataManager.isCityWeatherFavorite(cityWeather.getId())
                                 .flatMap(favorite -> {
                                     cityWeather.setFavorite(favorite);
                                     return Observable.<CityWeather>just(cityWeather);
                                 }))
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(cityWeather -> {
 
                     if (getView() != null) {
@@ -56,6 +76,8 @@ public class CityWeatherSearchPresenter extends MvpBasePresenter<CityWeatherSear
 
                     Log.d("onError", error.toString());
                 });
+
+        compositeSubscription.add(subscription);
     }
 
     @Override
@@ -63,12 +85,16 @@ public class CityWeatherSearchPresenter extends MvpBasePresenter<CityWeatherSear
 
         if (cityWeather.isFavorite()) {
 
-            dataManager.addCityWeatherToFavorites(cityWeather)
+            dataManager
+                    .addCityWeatherToFavorites(cityWeather)
+                    .compose(applySchedulers())
                     .subscribe(aVoid -> {
                     }, Throwable::printStackTrace);
         } else {
 
-            dataManager.removeCityWeatherFromFavorites(cityWeather)
+            dataManager
+                    .removeCityWeatherFromFavorites(cityWeather)
+                    .compose(applySchedulers())
                     .subscribe(aVoid -> {
                     }, Throwable::printStackTrace);
         }
