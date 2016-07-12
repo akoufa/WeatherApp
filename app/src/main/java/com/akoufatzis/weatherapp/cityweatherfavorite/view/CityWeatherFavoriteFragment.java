@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 
 import com.akoufatzis.weatherapp.R;
 import com.akoufatzis.weatherapp.WeatherApplication;
+import com.akoufatzis.weatherapp.cityweathercommon.CityWeatherAdapter;
 import com.akoufatzis.weatherapp.cityweatherfavorite.CityWeatherFavoriteContract;
 import com.akoufatzis.weatherapp.cityweatherfavorite.injection.DaggerCityWeatherFavoriteComponent;
 import com.akoufatzis.weatherapp.cityweatherfavorite.presenter.CityWeatherFavoritePresenter;
-import com.akoufatzis.weatherapp.cityweathersearch.view.CityWeatherAdapter;
 import com.akoufatzis.weatherapp.model.CityWeather;
 import com.akoufatzis.weatherapp.widgets.ItemOffsetDecoration;
 
