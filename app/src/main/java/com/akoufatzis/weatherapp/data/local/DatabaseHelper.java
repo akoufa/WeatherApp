@@ -47,7 +47,17 @@ public class DatabaseHelper {
             SQLiteDatabase db = dbOpenHelper.getReadableDatabase();
             return db.rawQuery(sqlQuery, new String[]{String.valueOf(id)});
         })
-                .map(Db.CityWeatherTable::parseCursor);
+                .map((cursor) -> {
+
+                    CityWeather cityWeather = null;
+
+                    if (cursor != null && cursor.moveToFirst()) {
+                        cityWeather = Db.CityWeatherTable.parseCursor(cursor);
+                        cursor.close();
+                    }
+
+                    return cityWeather;
+                });
     }
 
     public Observable<CityWeather> findFavoriteCityWeatherById(final long id) {
@@ -61,7 +71,18 @@ public class DatabaseHelper {
             SQLiteDatabase db = dbOpenHelper.getReadableDatabase();
             return db.rawQuery(sqlQuery, new String[]{String.valueOf(id), "1"});
         })
-                .map(Db.CityWeatherTable::parseCursor);
+                .map((cursor) -> {
+
+                    CityWeather cityWeather = null;
+
+                    if (cursor != null && cursor.moveToFirst()) {
+
+                        cityWeather = Db.CityWeatherTable.parseCursor(cursor);
+                        cursor.close();
+                    }
+
+                    return cityWeather;
+                });
     }
 
     public Observable<Void> deleteFavoriteCityWeatherById(final long id) {
@@ -84,16 +105,21 @@ public class DatabaseHelper {
         return Observable.fromCallable(() -> {
 
             SQLiteDatabase db = dbOpenHelper.getReadableDatabase();
-            return db.rawQuery(sqlQuery, new String[]{String.valueOf(true)});
+            return db.rawQuery(sqlQuery, new String[]{String.valueOf(1)});
         }).map(cursor -> {
 
             List<CityWeather> cityWeatherList = new ArrayList<>();
-            while (cursor.moveToNext()) {
 
-                cityWeatherList.add(Db.CityWeatherTable.parseCursor(cursor));
+            if (cursor != null && cursor.moveToFirst()) {
+
+                while (!cursor.isAfterLast()) {
+
+                    cityWeatherList.add(Db.CityWeatherTable.parseCursor(cursor));
+                    cursor.moveToNext();
+                }
+
+                cursor.close();
             }
-
-            cursor.close();
 
             return cityWeatherList;
         });

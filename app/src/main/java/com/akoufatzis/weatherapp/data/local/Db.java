@@ -2,7 +2,7 @@ package com.akoufatzis.weatherapp.data.local;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 
 import com.akoufatzis.weatherapp.model.CityWeather;
 
@@ -33,19 +33,12 @@ public class Db {
             return values;
         }
 
-        @Nullable
-        public static CityWeather parseCursor(Cursor cursor) {
+        public static CityWeather parseCursor(@NonNull Cursor cursor) {
 
-            if (cursor != null && cursor.moveToFirst()) {
-                CityWeather cityWeather = new CityWeather();
-                cityWeather.setId(Long.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ID))));
-                cityWeather.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_FAVORITE)) == 1);
-                cursor.close();
-                return cityWeather;
-            } else {
-
-                return null;
-            }
+            CityWeather cityWeather = new CityWeather();
+            cityWeather.setId(Long.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ID))));
+            cityWeather.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_FAVORITE)) == 1);
+            return cityWeather;
         }
     }
 }

@@ -20,27 +20,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/bottom_bar_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <EditText
-            android:id="@+id/citiesweathersearch_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="@string/enter_city_name_hint"
-            android:maxLength="30"
-            android:maxLines="1"
-            android:textColor="@android:color/white" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/citiesweathersearch_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
+    </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -1,6 +1,6 @@
 package com.akoufatzis.weatherapp.cityweathersearch.injection;
 
-import com.akoufatzis.weatherapp.cityweathersearch.view.CityWeatherSearchActivity;
+import com.akoufatzis.weatherapp.cityweathersearch.view.CityWeatherSearchFragment;
 import com.akoufatzis.weatherapp.injection.components.OpenWeatherMapComponent;
 import com.akoufatzis.weatherapp.injection.scopes.PerActivity;
 
@@ -16,5 +16,5 @@ import dagger.Component;
 )
 public interface CityWeatherSearchComponent {
 
-    CityWeatherSearchActivity inject(CityWeatherSearchActivity activity);
+    CityWeatherSearchFragment inject(CityWeatherSearchFragment fragment);
 }

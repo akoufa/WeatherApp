@@ -2,21 +2,24 @@ package com.akoufatzis.weatherapp.cityweathersearch.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.akoufatzis.weatherapp.R;
 import com.akoufatzis.weatherapp.WeatherApplication;
 import com.akoufatzis.weatherapp.cityweatherdetails.view.CityWeatherDetailsActivity;
-import com.akoufatzis.weatherapp.cityweathersearch.view.CityWeatherAdapter.OnCityWeatherClickListener;
-import com.akoufatzis.weatherapp.cityweathersearch.view.CityWeatherAdapter.OnCityWeatherFavoriteSelectListener;
 import com.akoufatzis.weatherapp.cityweathersearch.CityWeatherSearchContract;
 import com.akoufatzis.weatherapp.cityweathersearch.injection.DaggerCityWeatherSearchComponent;
-import com.akoufatzis.weatherapp.common.BaseBottomBarActivity;
 import com.akoufatzis.weatherapp.model.CityWeather;
 import com.akoufatzis.weatherapp.widgets.ItemOffsetDecoration;
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -27,11 +30,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
- * Created by alexk on 02/05/16.
+ * Created by alexk on 12/07/16.
  */
-public class CityWeatherSearchActivity extends BaseBottomBarActivity implements CityWeatherSearchContract.View {
+public class CityWeatherSearchFragment extends Fragment implements CityWeatherSearchContract.View {
 
     @BindView(R.id.citiesweathersearch_edittext)
     EditText searchEditText;
@@ -44,12 +48,12 @@ public class CityWeatherSearchActivity extends BaseBottomBarActivity implements 
 
     private CityWeatherAdapter cityWeatherAdapter;
     private boolean isLinearLayoutEnabled;
-    private OnCityWeatherClickListener onCityWeatherClickListener;
-    private OnCityWeatherFavoriteSelectListener onCityWeatherFavoriteSelectListener;
+    private CityWeatherAdapter.OnCityWeatherClickListener onCityWeatherClickListener;
+    private CityWeatherAdapter.OnCityWeatherFavoriteSelectListener onCityWeatherFavoriteSelectListener;
 
-    @Override
-    protected int getLayoutResourceId() {
-        return R.layout.activity_citiesweathersearch;
+    public static CityWeatherSearchFragment newInstance() {
+
+        return new CityWeatherSearchFragment();
     }
 
     @Override
@@ -58,19 +62,34 @@ public class CityWeatherSearchActivity extends BaseBottomBarActivity implements 
 
         DaggerCityWeatherSearchComponent
                 .builder()
-                .openWeatherMapComponent(((WeatherApplication) getApplication()).getOpenWeatherMapComponent())
+                .openWeatherMapComponent(((WeatherApplication) getActivity().getApplication()).getOpenWeatherMapComponent())
                 .build()
                 .inject(this);
+    }
 
-        cityWeatherAdapter = new CityWeatherAdapter(this, new ArrayList<>(), R.layout.item_city_weather_card);
-        cityWeatherRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        ItemOffsetDecoration itemOffsetDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_cityweathersearch, container, false);
+        ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+
+        cityWeatherAdapter = new CityWeatherAdapter(getContext(), new ArrayList<>(), R.layout.item_city_weather_card);
+        cityWeatherRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        ItemOffsetDecoration itemOffsetDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         cityWeatherRecyclerView.addItemDecoration(itemOffsetDecoration);
         cityWeatherRecyclerView.setAdapter(cityWeatherAdapter);
 
         onCityWeatherClickListener = cityWeather -> {
 
-            Intent intent = new Intent(this, CityWeatherDetailsActivity.class);
+            Intent intent = new Intent(getActivity(), CityWeatherDetailsActivity.class);
             intent.putExtra(CityWeatherDetailsActivity.CITY_ID_EXTRA, cityWeather.getId());
             intent.putExtra(CityWeatherDetailsActivity.CITY_NAME_EXTRA, cityWeather.getName());
             startActivity(intent);
@@ -86,14 +105,15 @@ public class CityWeatherSearchActivity extends BaseBottomBarActivity implements 
 
         presenter.attachView(this);
 
+        searchEditText.requestFocus();
         // Informing the presenter
         presenter.onSearchTextChanged(RxTextView.textChanges(searchEditText));
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.cityweathersearchmenu, menu);
-        return true;
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.cityweathersearchmenu, menu);
     }
 
     @Override
@@ -133,12 +153,12 @@ public class CityWeatherSearchActivity extends BaseBottomBarActivity implements 
 
         if (isLinearLayoutEnabled) {
 
-            cityWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            cityWeatherAdapter = new CityWeatherAdapter(this, new ArrayList<>(), R.layout.item_city_weather);
+            cityWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            cityWeatherAdapter = new CityWeatherAdapter(getContext(), new ArrayList<>(), R.layout.item_city_weather);
 
         } else {
-            cityWeatherRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-            cityWeatherAdapter = new CityWeatherAdapter(this, new ArrayList<>(), R.layout.item_city_weather_card);
+            cityWeatherRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            cityWeatherAdapter = new CityWeatherAdapter(getContext(), new ArrayList<>(), R.layout.item_city_weather_card);
         }
 
         cityWeatherAdapter.setOnCityWeatherClickListener(onCityWeatherClickListener);
@@ -148,7 +168,7 @@ public class CityWeatherSearchActivity extends BaseBottomBarActivity implements 
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         cityWeatherAdapter.clearListeners();
         presenter.detachView(false);
         super.onDestroy();

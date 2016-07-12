@@ -70,7 +70,15 @@ public class DataManager {
     public Observable<List<CityWeather>> getAllFavoriteCityWeather() {
 
         return databaseHelper
-                .getAllFavoriteCityWeather();
+                .getAllFavoriteCityWeather()
+                .flatMap(Observable::from)
+                .flatMap(cityWeather -> getWeatherByCityId(cityWeather.getId()))
+                .map(cityWeather -> {
+
+                    cityWeather.setFavorite(true);
+                    return cityWeather;
+                })
+                .toList();
     }
 
     public Observable<Void> removeCityWeatherFromFavorites(CityWeather cityWeather) {

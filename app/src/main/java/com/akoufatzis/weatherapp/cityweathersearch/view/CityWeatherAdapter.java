@@ -165,6 +165,9 @@ public class CityWeatherAdapter
         public void onCityWeatherFavoriteSelected() {
 
             CityWeather cityWeather = cityWeatherList.get(getAdapterPosition());
+
+            // TODO: Dont update this immediately this is business logic and should be handled
+            // by the presenter
             cityWeather.setFavorite(!cityWeather.isFavorite());
 
             if (favoriteListener != null && cityWeatherList.size() > getAdapterPosition()) {
