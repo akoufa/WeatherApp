@@ -51,8 +51,6 @@ public class CityWeatherSearchPresenter extends MvpBasePresenter<CityWeatherSear
 
         Subscription subscription = searchObservable
                 .debounce(300, TimeUnit.MILLISECONDS)
-                // Th
-                .observeOn(AndroidSchedulers.mainThread())
                 .map(CharSequence::toString)
                 .map(String::trim)
                 .filter(searchTerm -> searchTerm.length() > 2)
