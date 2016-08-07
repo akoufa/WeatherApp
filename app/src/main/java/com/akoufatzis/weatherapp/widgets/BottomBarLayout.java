@@ -62,7 +62,7 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
         this.listener = listener;
     }
 
-    public void setBottomBarItems(List<BottomBarItem> bottomBarItems, int selectedIndex) {
+    private void setBottomBarItems(List<BottomBarItem> bottomBarItems, int selectedIndex) {
 
         if (bottomBarItems.size() < 3 || bottomBarItems.size() > 5) {
 
@@ -93,24 +93,19 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
         }
     }
 
-    public void setSelectedState(List<BottomBarItem> bottomBarItems, int selectedIndex) {
+    @Override
+    public void onClick(View v) {
 
         for (BottomBarItem bottomBarItem : bottomBarItems) {
 
             bottomBarItem.setSelected(false);
         }
 
-        BottomBarItem bottomBarItem = bottomBarItems.get(selectedIndex);
+        BottomBarItem bottomBarItem = (BottomBarItem) v;
         bottomBarItem.setSelected(true);
-    }
-
-    @Override
-    public void onClick(View v) {
 
         if (listener != null) {
 
-            BottomBarItem bottomBarItem = (BottomBarItem) v;
-//            setSelectedState(bottomBarItems, bottomBarItem.getIndex());
             // Passing the onClick further to our listener
             listener.onBottomBarItemClicked(bottomBarItem);
         }

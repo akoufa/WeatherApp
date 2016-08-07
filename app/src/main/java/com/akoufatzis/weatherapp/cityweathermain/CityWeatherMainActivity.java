@@ -76,7 +76,7 @@ public class CityWeatherMainActivity extends BaseToolbarActivity implements Bott
 
     @Override
     public void onBottomBarItemClicked(BottomBarItem bottomBarItem) {
-
+        
         // Already shown
         if (currentIndex == bottomBarItem.getIndex()) {
 
