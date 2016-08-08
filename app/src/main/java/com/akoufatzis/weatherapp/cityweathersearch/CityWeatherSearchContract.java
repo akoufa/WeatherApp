@@ -11,13 +11,19 @@ import rx.Observable;
 public interface CityWeatherSearchContract {
 
     interface View extends MvpModelListView<CityWeather> {
+
+        void showSetToFavoritesSuccessful(CityWeather cityWeather);
+
+        void showSetToFavoritesFailed(CityWeather cityWeather);
+
+        void showRemovedFromFavoritesSuccessful(CityWeather cityWeather);
+
+        void showRemovedFromFavoritesFailed(CityWeather cityWeather);
     }
 
     interface Presenter extends com.akoufatzis.weatherapp.common.Presenter<View> {
 
         void onSearchTextChanged(Observable<CharSequence> searchObservable);
-
-        void onCityWeatherSelected(CityWeather cityWeather);
 
         void onFavoriteSelected(CityWeather cityWeather);
     }

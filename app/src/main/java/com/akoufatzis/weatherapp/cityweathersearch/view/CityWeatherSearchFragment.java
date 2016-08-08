@@ -96,10 +96,7 @@ public class CityWeatherSearchFragment extends Fragment implements CityWeatherSe
             startActivity(intent);
         };
 
-        onCityWeatherFavoriteSelectListener = cityWeather -> {
-
-            presenter.onFavoriteSelected(cityWeather);
-        };
+        onCityWeatherFavoriteSelectListener = cityWeather -> presenter.onFavoriteSelected(cityWeather);
 
         cityWeatherAdapter.setOnCityWeatherClickListener(onCityWeatherClickListener);
         cityWeatherAdapter.setOnCityWeatherFavoriteSelectListener(onCityWeatherFavoriteSelectListener);
@@ -185,6 +182,30 @@ public class CityWeatherSearchFragment extends Fragment implements CityWeatherSe
 
         cityWeatherAdapter.addCityWeather(cityWeather);
         cityWeatherRecyclerView.scrollToPosition(0);
+    }
+
+    @Override
+    public void showSetToFavoritesFailed(CityWeather cityWeather) {
+
+        // TODO: Inform the user about the failure
+    }
+
+    @Override
+    public void showSetToFavoritesSuccessful(CityWeather cityWeather) {
+
+        cityWeatherAdapter.setCityWeatherAsFavorite(cityWeather);
+    }
+
+    @Override
+    public void showRemovedFromFavoritesFailed(CityWeather cityWeather) {
+
+        // TODO: Inform the user about the failure
+    }
+
+    @Override
+    public void showRemovedFromFavoritesSuccessful(CityWeather cityWeather) {
+
+        cityWeatherAdapter.setCityWeatherAsFavorite(cityWeather);
     }
 
     @Override

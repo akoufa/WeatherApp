@@ -13,7 +13,7 @@
         android:hint="@string/enter_city_name_hint"
         android:maxLength="30"
         android:maxLines="1"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/primary_text" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/citiesweathersearch_recyclerview"

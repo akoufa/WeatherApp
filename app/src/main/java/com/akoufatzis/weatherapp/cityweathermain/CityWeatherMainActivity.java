@@ -55,7 +55,7 @@ public class CityWeatherMainActivity extends BaseToolbarActivity implements Bott
                 new BottomBarItem.BottomBarItemOption(R.drawable.ic_gps_fixed_white_24dp,
                         R.string.nearby, android.R.color.white, 2)));
         bottomBarLayout = new BottomBarLayout(this, bottomBarItems, 0);
-        bottomBarLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.accent));
+        bottomBarLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_dark));
 
         CoordinatorLayout.LayoutParams params
                 = new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(56));
@@ -76,7 +76,7 @@ public class CityWeatherMainActivity extends BaseToolbarActivity implements Bott
 
     @Override
     public void onBottomBarItemClicked(BottomBarItem bottomBarItem) {
-        
+
         // Already shown
         if (currentIndex == bottomBarItem.getIndex()) {
 
