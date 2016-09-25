@@ -84,6 +84,12 @@ public class CityWeatherFavoriteFragment extends Fragment implements CityWeather
     }
 
     @Override
+    public void onDestroyView() {
+        presenter.detachView(false);
+        super.onDestroyView();
+    }
+
+    @Override
     public void addData(CityWeather data) {
 
     }

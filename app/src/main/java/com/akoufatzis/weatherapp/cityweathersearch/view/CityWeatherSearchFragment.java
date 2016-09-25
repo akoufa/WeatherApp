@@ -166,10 +166,10 @@ public class CityWeatherSearchFragment extends Fragment implements CityWeatherSe
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
         cityWeatherAdapter.clearListeners();
         presenter.detachView(false);
-        super.onDestroy();
+        super.onDestroyView();
     }
 
     @Override
