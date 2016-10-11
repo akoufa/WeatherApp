@@ -1,12 +1,12 @@
 # WeatherApp
 
-Demo Weather app to test various Android concepts like MVP, RxJava, Dagger 2, Testing
+An Android MVP app to test various Android concepts like MVP, RxJava, Dagger 2, Testing
 
 <p align="center">
     <img src="images/screens.png" alt="Screenshots"/>
 </p>
 
-The architecture of this app was based upon https://github.com/ribot/android-guidelines/blob/master/architecture_guidelines/android_architecture.md with custom modifications like not using an Eventbus as this is not needed in an Rx flow based app.
+The architecture of this app was based upon https://github.com/ribot/android-guidelines/blob/master/architecture_guidelines/android_architecture.md with custom modifications like not using an Eventbus as this is not needed in an Rx flow based app. The app still uses the MVP Pattern for the presentation layer.
 
 ## Libraries
 
@@ -17,7 +17,6 @@ The libraries and tools used include:
 - [RxJava](https://github.com/ReactiveX/RxJava) and [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 - [Retrofit](http://square.github.io/retrofit/) and [OkHttp](https://github.com/square/okhttp)
 - [Dagger 2](http://google.github.io/dagger/)
-- [EasyAdapter](https://github.com/ribot/easy-adapter)
 - [Butterknife](https://github.com/JakeWharton/butterknife)
 - [Espresso](https://google.github.io/android-testing-support-library/)
 - [Mockito](http://mockito.org/)
