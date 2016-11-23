@@ -37,5 +37,6 @@
         app:itemBackground="@color/primary_dark"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
+        app:layout_scrollFlags="scroll|enterAlways"
         app:menu="@menu/bottom_navigation_main" />
 </android.support.design.widget.CoordinatorLayout>

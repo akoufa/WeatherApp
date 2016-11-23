@@ -1,6 +1,7 @@
 package com.akoufatzis.weatherapp.cityweathermain;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
@@ -38,6 +39,8 @@ public class CityWeatherMainActivity extends BaseToolbarActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        // Set default selected item
+        selectFragmentForMenuItemId(R.id.action_search);
     }
 
     @Override
@@ -49,10 +52,16 @@ public class CityWeatherMainActivity extends BaseToolbarActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        selectFragmentForMenuItemId(item.getItemId());
+        return true;
+    }
+
+    public void selectFragmentForMenuItemId(@IdRes int itemId) {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment;
 
-        switch (item.getItemId()) {
+        switch (itemId) {
 
             case R.id.action_search:
                 fragment = CityWeatherSearchFragment.newInstance();
@@ -72,7 +81,5 @@ public class CityWeatherMainActivity extends BaseToolbarActivity
 
         fragmentManager.beginTransaction().replace(R.id.bottom_bar_fragment_container,
                 fragment, BOTTOM_BAR_TAG).commit();
-
-        return true;
     }
 }
