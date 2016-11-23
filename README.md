@@ -23,17 +23,17 @@ The libraries and tools used include:
 
 ## Requirements
 
-- [Android SDK](http://developer.android.com/sdk/index.html).
-- Android [4.2 (API 17) ](http://developer.android.com/tools/revisions/platforms.html#6.0).
+- [Android SDK](http://developer.android.com/sdk/index.html)
+- Android min SDK Version 4.2 (API 17)
 - Android SDK Tools
-- Android SDK Build tools 23.0.1
+- Android SDK Build tools 25.0.0
 - Android Support Repository
 
 ## Build Instructions
 
 In order to run this project, you'll need to setup several things beforehand:
 
-- Our application uses the [OpenWeatherMap API](http://openweathermap.org) to obtain information about current weather and forecasts,
+- This application uses the [OpenWeatherMap API](http://openweathermap.org) to obtain information about current weather and forecasts,
 you'll need to register and obtain an API Key
 
 - You'll need to set the values found in the [gradle.properties](gradle.properties) file.
